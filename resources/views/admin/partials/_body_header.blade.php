@@ -30,7 +30,7 @@
                         stroke-linecap="round" stroke-linejoin="round"></path>
                 </svg>
             </span>
-            <input type="search" class="form-control" placeholder="Search...">
+            <input type="search" class="form-control" placeholder="Cari...">
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,7 +70,7 @@
                                 <a href="javascript:void(0)" class="dropdown-item"
                                     onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                                    {{ __('Log out') }}
+                                    {{ __('Keluar') }}
                                 </a>
                             </form>
                         </li>

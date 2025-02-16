@@ -79,17 +79,13 @@
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-check mb-3">
-                                                    <input type="checkbox" type="checkbox" class="form-check-input"
-                                                        id="remember" name="remember"
+                                                    <input type="checkbox" class="form-check-input" id="remember"
+                                                        value="1" name="remember"
                                                         {{ old('remember') ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="remember">
                                                         Ingat Saya</label>
                                                 </div>
                                             </div>
-                                            {{-- <div class="col-lg-6">
-                                                <a href="{{ route('password.request') }}" class="float-end mb-3">Forget
-                                                    Password?</a>
-                                            </div> --}}
                                         </div>
                                         <div class="d-flex justify-content-center">
                                             <button type="submit" class="btn btn-primary">{{ __('Masuk') }}</button>
@@ -107,6 +103,7 @@
             </div>
         </section>
     </div>
+    @include('admin.partials._app_toast')
 </body>
 
 </html>

@@ -19,22 +19,69 @@ class RoleSeeder extends Seeder
         $sales = Role::create(['name' => 'sales']);
 
         // Permissions
-        $permissions = [
-            'manage users',
-            'manage leads',
-            'manage products',
-            'manage projects',
-            'manage customers'
-        ];
+        $models = ['project', 'lead', 'product', 'customer', 'user'];
+        $actions = ['view_any', 'view', 'create', 'update', 'delete', 'restore', 'force_delete'];
 
-        foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
+        foreach ($models as $model) {
+            foreach ($actions as $action) {
+                Permission::create(['name' => "{$action}_{$model}"]);
+            }
         }
 
         // Assign Permissions
         $superAdmin->givePermissionTo(Permission::all());
-        $manager->givePermissionTo(['manage leads', 'manage products', 'manage projects', 'manage customers']);
-        $staff->givePermissionTo(['manage leads', 'manage products', 'manage customers']);
-        $sales->givePermissionTo(['manage leads']);
+        $manager->givePermissionTo([
+            'view_any_project',
+            'view_project',
+            'create_project',
+            'update_project',
+            'delete_project',
+            'view_any_lead',
+            'view_lead',
+            'create_lead',
+            'update_lead',
+            'delete_lead',
+            'view_any_product',
+            'view_product',
+            'create_product',
+            'update_product',
+            'delete_product',
+            'view_any_customer',
+            'view_customer',
+            'create_customer',
+            'update_customer',
+            'delete_customer',
+            'view_any_user',
+            'view_user',
+            'create_user',
+            'update_user',
+            'delete_user',
+        ]);
+        $staff->givePermissionTo([
+            'view_any_project',
+            'view_project',
+            'view_any_lead',
+            'view_lead',
+            'create_lead',
+            'update_lead',
+            'delete_lead',
+            'view_any_product',
+            'view_product',
+            'create_product',
+            'update_product',
+            'delete_product',
+            'view_any_customer',
+            'view_customer',
+            'create_customer',
+            'update_customer',
+            'delete_customer',
+        ]);
+        $sales->givePermissionTo([
+            'view_any_lead',
+            'view_lead',
+            'create_lead',
+            'update_lead',
+            'delete_lead',
+        ]);
     }
 }
