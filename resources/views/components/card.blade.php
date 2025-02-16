@@ -27,11 +27,11 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="form-group col-md-12">
-                            <p class="mb-0"><b>Created at</b></p>
+                            <p class="mb-0"><b>Dibuat pada</b></p>
                             <p class="mb-2">
                                 {{ $createdAt === null ? '-' : \Carbon\Carbon::parse($createdAt)->diffForHumans() }}
                             </p>
-                            <p class="mb-0"><b>Last modified at</b></p>
+                            <p class="mb-0"><b>Terakhir diubah pada</b></p>
                             <p class="mb-0">
                                 {{ $updatedAt === null ? '-' : \Carbon\Carbon::parse($updatedAt)->diffForHumans() }}
                             </p>

@@ -16,6 +16,11 @@ class Product extends Model
         'price'
     ];
 
+    public function getFormattedPriceAttribute(): string
+    {
+        return 'Rp' . number_format($this->price, 2, ',', '.');
+    }
+
     public function projects()
     {
         return $this->hasMany(Project::class);

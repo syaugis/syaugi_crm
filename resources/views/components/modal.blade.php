@@ -21,7 +21,7 @@
 
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">{{ $submitLabel }}</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
                 </div>
             </form>
         </div>
