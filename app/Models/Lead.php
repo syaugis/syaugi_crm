@@ -24,11 +24,16 @@ class Lead extends Model
     const STATUS_IN_PROGRESS  = 1;
     const STATUS_CLOSED       = 2;
 
-    public static $statuses = [
+    const STATUSES = [
         self::STATUS_NEW            => 'New',
         self::STATUS_IN_PROGRESS    => 'In Progress',
         self::STATUS_CLOSED         => 'Closed'
     ];
+
+    public function getFormattedStatusAttribute(): string
+    {
+        return self::STATUSES[$this->status] ?? 'Unknown';
+    }
 
     public function user(): BelongsTo
     {

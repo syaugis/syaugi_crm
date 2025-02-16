@@ -2,14 +2,14 @@
 
 namespace App\Services\Exports;
 
-use App\Models\Product;
+use App\Models\Lead;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithCustomChunkSize;
 
-class ProductsExportService implements FromQuery, WithCustomChunkSize, WithHeadings, WithMapping
+class LeadsExportService implements FromQuery, WithCustomChunkSize, WithHeadings, WithMapping
 {
     use Exportable;
 
@@ -18,7 +18,7 @@ class ProductsExportService implements FromQuery, WithCustomChunkSize, WithHeadi
      */
     public function query()
     {
-        return Product::query();
+        return Lead::query()->with('user');
     }
 
     /**
@@ -37,26 +37,30 @@ class ProductsExportService implements FromQuery, WithCustomChunkSize, WithHeadi
         return [
             'ID',
             'Nama',
-            'Deskripsi',
-            'Harga',
+            'Email',
+            'Nomor Telepon',
+            'Status',
+            'Ditugaskan Kepada',
             'Dibuat Pada',
             'Diperbarui Pada',
         ];
     }
 
     /**
-     * @param mixed $product
+     * @param mixed $lead
      * @return array
      */
-    public function map($product): array
+    public function map($lead): array
     {
         return [
-            $product->id,
-            $product->name,
-            $product->description,
-            $product->price,
-            $product->created_at,
-            $product->updated_at,
+            $lead->id,
+            $lead->name,
+            $lead->email,
+            $lead->phone_number,
+            $lead->formatted_status,
+            $lead->user->name,
+            $lead->created_at,
+            $lead->updated_at,
         ];
     }
 }

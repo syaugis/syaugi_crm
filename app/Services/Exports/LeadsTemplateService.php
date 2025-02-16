@@ -6,7 +6,7 @@ use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class ProductsTemplateService implements FromArray, WithHeadings
+class LeadsTemplateService implements FromArray, WithHeadings
 {
     use Exportable;
 
@@ -25,8 +25,8 @@ class ProductsTemplateService implements FromArray, WithHeadings
     {
         return [
             'name',
-            'description',
-            'price'
+            'email',
+            'phone_number'
         ];
     }
 }

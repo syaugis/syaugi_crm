@@ -1,0 +1,1 @@
+<x-action-buttons :entity="'lead'" :id="$id" :editRoute="route('admin.lead.edit', $id)" :deleteRoute="route('admin.lead.destroy', $id)" :deleteMessage="__('Apakah anda yakin ingin menghapus calon pelanggan ini?')" />
