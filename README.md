@@ -11,12 +11,18 @@ Aplikasi CRM sederhana untuk studi kasus divisi penjualan PT. Smart, dikembangka
   - Pengguna dengan hak akses **Super Admin**, **Manager**, **Staff**, dan **Sales**
 - **Autentikasi dan Otorisasi:** Middleware otomatis untuk peran dan izin.  
 - **DataTables Server-Side Rendering:**  
-  - Menggunakan **Yajra DataTables** untuk server-side rendering yang efisien dan responsif.  
+  - Menggunakan **DataTables** untuk server-side rendering yang efisien dan dinamis.  
   - Mendukung pencarian, filter, dan pagination pada tabel data.  
 - **Notifikasi Aplikasi:** Notifikasi otomatis untuk aktivitas penting, seperti update status proyek dan approval manager.  
-- **Manajemen Produk:** CRUD dan export-import produk layanan internet.  
-- **Manajemen Pelanggan dan Proyek:** Hanya menampilkan data yang telah disetujui.  
+- **Manajemen Produk, Pelanggan dan Proyek:** CRUD dan impor-ekspor.  
 
+---
+
+## **Desain Database**
+
+![Desain Database](https://github.com/user-attachments/assets/6a970524-3019-48b4-bc2e-c2767d8aa317)
+
+Klik [di sini](https://dbdiagram.io/e/67b16b22263d6cf9a04bddf1/67b2e524263d6cf9a062edb7) untuk melihat versi interaktif.
 
 ---
 
@@ -103,8 +109,9 @@ heroku config:set APP_DEBUG=false --app nama-aplikasi
     ```bash
     heroku config:get JAWSDB_URL --app nama-aplikasi
     ```
-- Parse URL menjadi::
+- Parse URL menjadi:
     ```bash
+    JAWSDB_URL=mysql://xxxx
     DB_CONNECTION=mysql
     DB_HOST=xxxxxx
     DB_PORT=3306
@@ -129,6 +136,7 @@ heroku run php artisan storage:link --app nama-aplikasi
 ```
 
 ---
+
 ## **Akses Aplikasi:**
 - Akun Default untuk Login (Seeder):
   - Email: superadmin@mail.com
