@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProjectRequest;
-use App\Models\Customer;
 use App\Models\Lead;
 use App\Models\Product;
 use App\Models\Project;
 use App\Models\User;
 use App\Services\DataTables\ProjectDataTableService;
 use App\Services\Exports\ProjectsExportService;
+use App\Services\ProjectService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -19,11 +19,13 @@ use Illuminate\View\View;
 
 class ProjectController extends Controller
 {
+    protected $projectService;
     protected $projectDataTableService;
     protected $projectsExportService;
 
-    public function __construct(ProjectDataTableService $projectDataTableService, ProjectsExportService $projectsExportService)
+    public function __construct(ProjectService $projectService, ProjectDataTableService $projectDataTableService, ProjectsExportService $projectsExportService)
     {
+        $this->projectService = $projectService;
         $this->projectDataTableService = $projectDataTableService;
         $this->projectsExportService = $projectsExportService;
     }
@@ -52,7 +54,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        $leads = Lead::pluck('name', 'id');
+        $leads    = Lead::pluck('name', 'id');
         $products = Product::pluck('name', 'id');
 
         return view('admin.project.form', compact('leads', 'products'));
@@ -65,7 +67,12 @@ class ProjectController extends Controller
     {
         $validatedData = $request->validated();
         $validatedData['status'] = Project::STATUS_PENDING;
-        Project::create($validatedData);
+
+        $response = $this->projectService->create($validatedData);
+
+        if (isset($response['error'])) {
+            return back()->withErrors($response['error']);
+        }
 
         return redirect()->route('admin.project.index')->with('success', 'Proyek berhasil ditambahkan');
     }
@@ -83,7 +90,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        $leads = Lead::pluck('name', 'id');
+        $leads    = Lead::pluck('name', 'id');
         $products = Product::pluck('name', 'id');
         $statuses = Project::STATUSES;
 
@@ -106,17 +113,11 @@ class ProjectController extends Controller
             return back()->withErrors('Anda tidak memiliki izin untuk menyetujui proyek');
         }
 
-        if ($validatedData['status'] == Project::STATUS_APPROVED) {
-            $validatedData['approved_by'] = $user->id;
+        $response = $this->projectService->update($validatedData, $project, $user);
 
-            Customer::create([
-                'name' => $project->lead->name,
-                'email' => $project->lead->email,
-                'phone_number' => $project->lead->phone_number
-            ]);
+        if (isset($response['error'])) {
+            return back()->withErrors($response['error']);
         }
-
-        $project->update($validatedData);
 
         return redirect()->route('admin.project.index')->with('success', 'Proyek berhasil diperbarui');
     }
