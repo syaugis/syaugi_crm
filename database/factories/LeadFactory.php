@@ -23,7 +23,7 @@ class LeadFactory extends Factory
             'name' => $this->faker->company,
             'email' => $this->faker->unique()->companyEmail,
             'phone_number' => $this->faker->phoneNumber,
-            'status' => Lead::STATUS_NEW,
+            'status' => Lead::STATUS_IN_PROGRESS,
         ];
     }
 }

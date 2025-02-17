@@ -8,7 +8,7 @@
                 @method('PUT')
             @endif
             <div class="row">
-                <x-select name="lead_id" label="Calon Pelanggan" :options="$leads" :selected="$project->lead_id ?? ''" required="true" />
+                <x-select name="lead_id" label="Nama Pelanggan" :options="$leads" :selected="$project->lead_id ?? ''" required="true" />
                 <x-select name="product_id" label="Produk" :options="$products" :selected="$project->product_id ?? ''" required="true" />
                 @if (isset($project->id))
                     <x-select name="status" label="Status" :options="$statuses" :selected="$project->status ?? ''" required="true" />

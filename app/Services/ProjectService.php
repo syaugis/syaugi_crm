@@ -7,7 +7,6 @@ use App\Models\Lead;
 use App\Models\Project;
 use App\Repositories\ProjectRepository;
 use Exception;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class ProjectService
@@ -38,12 +37,18 @@ class ProjectService
         try {
             if (isset($data['status']) && $data['status'] == Project::STATUS_APPROVED) {
                 $data['approved_by'] = $user->id;
+                $customer = $project->lead?->customer;
 
-                Customer::create([
-                    'name' => $project->lead->name,
-                    'email' => $project->lead->email,
-                    'phone_number' => $project->lead->phone_number
-                ]);
+                if (!$customer) {
+                    $customer = Customer::create([
+                        'lead_id' => $project->lead_id,
+                        'name' => $project->lead->name,
+                        'email' => $project->lead->email,
+                        'phone_number' => $project->lead->phone_number
+                    ]);
+                }
+
+                $customer->products()->attach($project->product_id);
 
                 $project->lead->update([
                     'status' => Lead::STATUS_CLOSED

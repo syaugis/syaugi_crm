@@ -2,14 +2,14 @@
 
 namespace App\Services\Exports;
 
-use App\Models\Project;
+use App\Models\Customer;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithCustomChunkSize;
 
-class ProjectsExportService implements FromQuery, WithCustomChunkSize, WithHeadings, WithMapping
+class CustomersExportService implements FromQuery, WithCustomChunkSize, WithHeadings, WithMapping
 {
     use Exportable;
 
@@ -18,11 +18,7 @@ class ProjectsExportService implements FromQuery, WithCustomChunkSize, WithHeadi
      */
     public function query()
     {
-        return Project::query()->with([
-            'lead:id,name',
-            'product:id,name',
-            'approver:id,name'
-        ]);
+        return Customer::query()->with('products');
     }
 
     /**
@@ -40,29 +36,29 @@ class ProjectsExportService implements FromQuery, WithCustomChunkSize, WithHeadi
     {
         return [
             'ID',
-            'Nama Pelanggan',
-            'Nama Produk',
-            'Status',
-            'Disetujui Oleh',
+            'Nama',
+            'Email',
+            'Nomor Telepon',
+            'Produk',
             'Dibuat Pada',
-            'Diperbarui Pada'
+            'Diperbarui Pada',
         ];
     }
 
     /**
-     * @param mixed $project
+     * @param mixed $lead
      * @return array
      */
-    public function map($project): array
+    public function map($lead): array
     {
         return [
-            $project->id,
-            $project->lead->name,
-            $project->product->name,
-            $project->formatted_status,
-            $project->approver->name ?? '-',
-            $project->created_at,
-            $project->updated_at
+            $lead->id,
+            $lead->name,
+            $lead->email,
+            $lead->phone_number,
+            $lead->product_names,
+            $lead->created_at,
+            $lead->updated_at,
         ];
     }
 }

@@ -76,7 +76,7 @@ class ProjectDataTableService extends DataTable
         return [
             Column::make('id')->title('ID'),
             Column::make('lead_id')
-                ->title('Nama Calon Pelanggan')
+                ->title('Nama Pelanggan')
                 ->data('lead.name')
                 ->name('lead.name'),
             Column::make('product_id')

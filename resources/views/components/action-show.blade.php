@@ -1,5 +1,5 @@
 <div class="flex align-items-center">
-    <a class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" title="Show {{ ucfirst($entity) }}"
+    <a class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" title="Tampilkan {{ ucfirst($entity) }}"
         href="{{ $route }}">
         <span class="btn-inner">
             <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

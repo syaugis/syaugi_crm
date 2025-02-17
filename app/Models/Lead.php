@@ -44,4 +44,9 @@ class Lead extends Model
     {
         return $this->hasOne(Project::class);
     }
+
+    public function customer(): HasOne
+    {
+        return $this->hasOne(Customer::class);
+    }
 }

@@ -35,7 +35,7 @@ class LeadRequest extends FormRequest
             'email.max' => 'Email maksimum 255 karakter',
             'phone_number.required' => 'Nomor Telepon di perlukan',
             'phone_number.string' => 'Nomor Telepon harus berupa string',
-            'phone_number.max' => 'Nomor Telepon maksimum 255 karakter',
+            'phone_number.max' => 'Nomor Telepon maksimum 14 digit',
         ];
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\ProductController;
@@ -54,5 +55,12 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::get('{project}/edit', 'edit')->name('admin.project.edit');
         Route::put('{project}', 'update')->name('admin.project.update');
         Route::delete('{project}', 'destroy')->name('admin.project.destroy');
+    });
+
+    Route::controller(CustomerController::class)->middleware('check.permissions')->prefix('customer')->group(function () {
+        Route::get('', 'index')->name('admin.customer.index');
+        Route::get('export', 'export')->name('admin.customer.export');
+        Route::get('show/{customer}', 'show')->name('admin.customer.show');
+        Route::delete('{customer}', 'destroy')->name('admin.customer.destroy');
     });
 });
