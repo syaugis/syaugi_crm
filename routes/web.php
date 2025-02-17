@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 
 /*------------------------------------------
@@ -43,5 +44,15 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::get('{lead}/edit', 'edit')->name('admin.lead.edit');
         Route::put('{lead}', 'update')->name('admin.lead.update');
         Route::delete('{lead}', 'destroy')->name('admin.lead.destroy');
+    });
+
+    Route::controller(ProjectController::class)->middleware('check.permissions')->prefix('project')->group(function () {
+        Route::get('', 'index')->name('admin.project.index');
+        Route::get('export', 'export')->name('admin.project.export');
+        Route::get('create', 'create')->name('admin.project.create');
+        Route::post('', 'store')->name('admin.project.store');
+        Route::get('{project}/edit', 'edit')->name('admin.project.edit');
+        Route::put('{project}', 'update')->name('admin.project.update');
+        Route::delete('{project}', 'destroy')->name('admin.project.destroy');
     });
 });

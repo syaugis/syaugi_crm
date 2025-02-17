@@ -1,0 +1,1 @@
+<x-action-buttons :entity="'project'" :id="$id" :editRoute="route('admin.project.edit', $id)" :deleteRoute="route('admin.project.destroy', $id)" :deleteMessage="__('Apakah anda yakin ingin menghapus Proyek ini?')" />

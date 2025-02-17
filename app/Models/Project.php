@@ -28,6 +28,11 @@ class Project extends Model
         self::STATUS_REJECTED => 'Rejected'
     ];
 
+    public function getFormattedStatusAttribute(): string
+    {
+        return self::STATUSES[$this->status] ?? 'Unknown';
+    }
+
     public function lead(): BelongsTo
     {
         return $this->belongsTo(Lead::class);
