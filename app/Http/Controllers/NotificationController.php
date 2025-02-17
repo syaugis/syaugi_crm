@@ -16,7 +16,7 @@ class NotificationController extends Controller
     public function show($id)
     {
         $notification = $this->notificationService->markAsRead($id);
-        $url = $notification->getData()->data->url;
+        $url = $notification->data['url'];
 
         return redirect($url);
     }
