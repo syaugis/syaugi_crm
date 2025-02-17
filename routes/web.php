@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LeadController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,13 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+
+    Route::controller(NotificationController::class)->prefix('notification')->group(function () {
+        Route::get('marks-read-all', 'marksAllRead')->name('admin.notification.marks-all-read');
+        Route::delete('clear-all', 'clearAll')->name('admin.notification.clear-all');
+        Route::get('{id}', 'show')->name('admin.notification.show');
+        Route::delete('{id}', 'destroy')->name('admin.notification.destroy');
+    });
 
     Route::controller(ProductController::class)->middleware('check.permissions')->prefix('product')->group(function () {
         Route::get('', 'index')->name('admin.product.index');

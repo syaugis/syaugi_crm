@@ -33,7 +33,9 @@
                                         <h4 class="logo-title ms-2"> Customer Relationship Management</h4>
                                     </a>
                                     <h2 class="mb-2 text-center">Masuk</h2>
-                                    <p class="text-center">Masuk ke backoffice CRM</p>
+                                    <p class="text-center">
+                                        Masuk ke CRM {{ config('app.name', 'Laravel') }}
+                                    </p>
 
                                     @if ($errors->any())
                                         <div class="alert alert-danger">
